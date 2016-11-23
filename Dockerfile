@@ -8,20 +8,17 @@ RUN	apk del supervisor && \
 	mkdir -p /var/data/sqs && \
 	gem install fake_sqs -v 0.3.1 --no-ri --no-rdoc
 
-# Add the files
+# Add the service script
+COPY service.sh /service.sh
+
 # this container has a "patch" for fake_sqs 0.3.1 that flushes the cache for each "msg" for stdio logging
 COPY container_confs /
-
-# fake SQS environment vars
-ENV SQS_USERNAME convox
-ENV SQS_PASSWORD password
-ENV SQS_PATH /
-ENV SQS_SHOW_LOGS 0
 
 # LINK env vars for convox
 ENV LINK_USERNAME convox
 ENV LINK_PASSWORD password
 ENV LINK_PATH /
+ENV LINK_SHOW_LOGS /
 
 # expose the fake sqs port
 EXPOSE 4568
@@ -29,8 +26,5 @@ EXPOSE 4568
 # expose the app volume
 VOLUME ["/var/data/sqs/"]
 
-# the entry point definition
-ENTRYPOINT ["/entrypoint.sh"]
-
 # default command for entrypoint.sh
-CMD ["fakesqs"]
+CMD ["service"]
