@@ -1,4 +1,4 @@
-FROM cheggwpt/ruby:latest
+FROM cheggwpt/ruby:0.0.1
 
 # Make the app directory
 # install the fake sqs gem without docs
