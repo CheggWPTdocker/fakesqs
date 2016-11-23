@@ -1,8 +1,11 @@
-FROM cheggwpt/ruby:0.0.1
+FROM cheggwpt/ruby:0.0.2
+MAINTAINER jgilley@chegg.com
 
+# remove supervisor since it is not used here
 # Make the app directory
 # install the fake sqs gem without docs
-RUN	mkdir -p /var/data/sqs && \
+RUN	apk del supervisor && \
+	mkdir -p /var/data/sqs && \
 	gem install fake_sqs -v 0.3.1 --no-ri --no-rdoc
 
 # Add the files

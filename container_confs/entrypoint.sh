@@ -3,8 +3,18 @@
 # entrypoint for container
 # ----------------------------------------------------------------------------
 set -e
+
 HOST_IP=`/bin/grep $HOSTNAME /etc/hosts | /usr/bin/cut -f1`
-echo "started with ip: ${HOST_IP}..."
+echo
+echo "container started with ip: ${HOST_IP}..."
+echo
+for script in /docker-init.d/*; do
+	case "$script" in
+		*.sh)     echo "... running $script"; . "$script" ;;
+		*)        echo "... ignoring $script" ;;
+	esac
+	echo
+done
 
 if [ "$1" == "fakesqs" ]; then
 	echo "starting fakesqs with...."
