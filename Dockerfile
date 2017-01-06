@@ -26,8 +26,6 @@ EXPOSE 4568
 # expose the app volume
 VOLUME ["/var/data/sqs/"]
 
-# the entry point definition
-ENTRYPOINT ["/entrypoint.sh"]
-
 # default command for entrypoint.sh
-CMD ["fakesqs"]
+CMD ["/start_fakesqs.sh"]
+

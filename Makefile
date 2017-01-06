@@ -1,5 +1,5 @@
 NAME = cheggwpt/fakesqs
-VERSION = 0.0.1
+VERSION = 0.0.5
 
 .PHONY: all build test tag_latest release ssh
 
